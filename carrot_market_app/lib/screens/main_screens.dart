@@ -1,71 +1,64 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'chatting/chatting_screen.dart';
+import 'home/home_screen.dart';
+import 'my_carrot/my_carrot_screen.dart';
+import 'near_me/near_me_screen.dart';
+import 'neighborhood_life/neighborhood_life_screen.dart';
+
 class MainScreens extends StatefulWidget {
   @override
-  State<MainScreens> createState() => _MainScreensState();
+  _MainScreensState createState() => _MainScreensState();
 }
 
 class _MainScreensState extends State<MainScreens> {
-  // 1.
   int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    // 2.
     return Scaffold(
-      // 3.
       body: IndexedStack(
         index: _selectedIndex,
         children: [
-          // index 0
-          Container(
-            color: Colors.orange[100],
-            child: Center(
-              child: Text(
-                'IndexedStack 1',
-                style: TextStyle(fontSize: 20, color: Colors.black),
-              ),
-            ),
-          ),
-          // index 1
-          Container(
-            color: Colors.redAccent[100],
-            child: Center(
-              child: Text(
-                'IndexedStack 2',
-                style: TextStyle(fontSize: 20, color: Colors.black),
-              ),
-            ),
-          ),
+          HomeScreen(),
+          NeighborhoodLifeScreen(),
+          NearMeScreen(),
+          ChattingScreen(),
+          MyCarrotScreen(),
         ],
       ),
-      // 4.
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
         items: [
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             label: '홈',
-            icon: Icon(
-              CupertinoIcons.home,
-            ),
+            icon: Icon(CupertinoIcons.home),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
+            label: '동네생활',
+            icon: Icon(CupertinoIcons.square_on_square),
+          ),
+          const BottomNavigationBarItem(
+            label: '내 근처',
+            icon: Icon(CupertinoIcons.placemark),
+          ),
+          const BottomNavigationBarItem(
             label: '채팅',
-            icon: Icon(
-              CupertinoIcons.chat_bubble,
-            ),
+            icon: Icon(CupertinoIcons.chat_bubble_2),
+          ),
+          const BottomNavigationBarItem(
+            label: '나의 당근',
+            icon: Icon(CupertinoIcons.person),
           ),
         ],
-        // 5.
-        onTap: (index) {
-          setState(
-            () {
-              _selectedIndex = index;
-            },
-          );
-        },
-        // 6.
-        currentIndex: _selectedIndex,
       ),
     );
   }
