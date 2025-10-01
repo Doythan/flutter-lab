@@ -1,4 +1,6 @@
-import 'package:carrot_market_app/theme.dart';
+import 'package:carrot_market_app/models/product.dart';
+import 'package:carrot_market_app/screens/home/components/product_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,16 +8,42 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("HomeScreen appBar 영역(index:0)"),
-      ),
-      body: Container(
-        color: Colors.orange[100],
-        child: Center(
-          child: Text(
-            "HomeScreen body 영역(index:0)",
-            style: textTheme().displayMedium,
-          ),
+        title: Row(
+          children: [
+            const Text("온천3동"),
+            const SizedBox(width: 4.0),
+            const Icon(
+              CupertinoIcons.chevron_down,
+              size: 15.0,
+            ),
+          ],
         ),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.search)),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(CupertinoIcons.list_dash),
+          ),
+          IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.bell)),
+        ],
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(0.5),
+          child: Divider(thickness: 0.5, height: 0.5, color: Colors.grey),
+        ),
+      ),
+      body: ListView.separated(
+        separatorBuilder: (context, index) => const Divider(
+          height: 0,
+          indent: 16,
+          endIndent: 16,
+          color: Colors.grey,
+        ),
+        itemBuilder: (context, index) {
+          return ProductItem(
+            product: productList[index],
+          );
+        },
+        itemCount: productList.length,
       ),
     );
   }
